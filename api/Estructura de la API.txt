@@ -1,0 +1,26 @@
+HTTP	URI									Acción
+POST	http://[hostname]/api/v1.0/comentarios/					Crea un nuevo comentario
+GET	http://[hostname]/api/v1.0/comentarios/?id_pub=88			Devuelve los comentarios de una publicacion
+GET	http://[hostname]/api/v1.0/contestaciones/[id_contestacion]		Devuelve una contestacion
+GET	http://[hostname]/api/v1.0/dashboard/?id_user=455			Devuelve las publicaciones del dashboard de un usuario
+GET	http://[hostname]/api/v1.0/publicaciones/?id_user=455			Devuelve las publicaciones de un usuario
+POST	http://[hostname]/api/v1.0/publicaciones/[id_pub]/dislike/?id_user=455	Quita un like a la publicacion
+POST	http://[hostname]/api/v1.0/publicaciones/[id_pub]/like/?id_user=455	Añade un like a la publicacion
+POST	http://[hostname]/api/v1.0/publicaciones/audios/			Crea un nuevo audio
+GET	http://[hostname]/api/v1.0/publicaciones/audios/[id_pub]		Devuelve un audio
+POST	http://[hostname]/api/v1.0/publicaciones/enlaces/			Crea un nuevo enlace
+GET	http://[hostname]/api/v1.0/publicaciones/enlaces/[id_pub]		Devuelve un enlace
+POST	http://[hostname]/api/v1.0/publicaciones/fotos/				Crea una nueva foto
+GET	http://[hostname]/api/v1.0/publicaciones/fotos/[id_pub]			Devuelve una foto
+POST	http://[hostname]/api/v1.0/publicaciones/textos/			Crea un nuevo texto
+GET	http://[hostname]/api/v1.0/publicaciones/textos/[id_pub]		Devuelve un texto
+POST	http://[hostname]/api/v1.0/publicaciones/videos/			Crea un nuevo video
+GET	http://[hostname]/api/v1.0/publicaciones/videos/[id_pub]		Devuelve un video
+POST	http://[hostname]/api/v1.0/respuestas/					Crea una nueva respuesta
+GET	http://[hostname]/api/v1.0/respuestas/?id_comentario=13			Devuelve los respuestas de una comentario
+GET	http://[hostname]/api/v1.0/seguidores/?id_user=455			Devuelve los seguidores de un usuario
+GET	http://[hostname]/api/v1.0/seguidos/?id_user=455			Devuelve los seguidos de un usuario
+POST	http://[hostname]/api/v1.0/usuarios/					Crea un nuevo usuario
+GET	http://[hostname]/api/v1.0/usuarios/[id_user]				Devuelve un usuario
+PUT	http://[hostname]/api/v1.0/usuarios/[id_user]				Actualiza un usuario
+DELETE	http://[hostname]/api/v1.0/usuarios/[id_user]				Borra un usuario
