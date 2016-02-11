@@ -13,11 +13,13 @@ DROP TABLE if EXISTS respuestas;
 
 CREATE TABLE usuarios(
 	id int primary key autoincrement,
-	usuario text,
+	usuario text UNIQUE,
 	nombre text,
-	email text,
+	email text UNIQUE,
 	desc text,
-	pass text
+	pass text,
+	num_seguidores int,
+	num_seguidos int
 );
 
 CREATE TABLE publicaciones(
@@ -25,6 +27,9 @@ CREATE TABLE publicaciones(
 	id_usuario int,
 	fecha date,
 	tipo int,
+	num_likes int,
+	num_comentarios int,
+	num_compartido int, 
 	FOREIGN KEY(id_usuario) REFERENCES usuarios(id),
 );
 
