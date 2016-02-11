@@ -58,6 +58,15 @@ def getPublicaciones(id_user):
 	results = db.cursor().execute('SELECT * FROM publicaciones WHERE id_usuario=?', (id_user,)).fetchall()
 	return results
 	
+def getDashboard(id_user):
+	db = get_db()
+	seguidos = getSeguidos(id_user)
+	publicaciones = {}
+	for user in seguidos:
+		publicaciones += db.cursor().execute('SELECT * FROM publicaciones WHERE id_usuario=?', (user[0],)).fetchall() #la pos 0 corresponde al id del usuario
+	publicaciones.sort(key=lambda x: x[2], reverse=True) #la pos 2 corresponde a la fecha de la publicacion
+	return publicaciones
+	
 def addLike(id_pub, id_user):
 	db = get_db()
 	db.cursor().execute('UPDATE publicaciones SET num_likes=num_likes+1 WHERE publicaciones.id_pub=?', (id_pub,))

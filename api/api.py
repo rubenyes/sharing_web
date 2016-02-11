@@ -53,6 +53,14 @@ def get_contestacion(id):
         abort(404)
     return jsonify( { 'contesatcion': contesatcion } )
 	
+@app.route('/api/v1.0/dashboard', methods = ['GET'])
+@auth.login_required
+def get_publicaciones():
+	id_user = request.args.get('id_user','')
+	if id_user == '':
+		abort(400)		
+    return jsonify( { 'dashboard': getDashboard(id_user) } )
+
 @app.route('/api/v1.0/publicaciones', methods = ['GET'])
 @auth.login_required
 def get_publicaciones():
