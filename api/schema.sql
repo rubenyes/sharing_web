@@ -17,7 +17,7 @@ CREATE TABLE usuarios(
 	nombre text,
 	email text UNIQUE,
 	desc text,
-	pass text,
+	pw text,
 	num_seguidores int,
 	num_seguidos int
 );
@@ -97,6 +97,7 @@ CREATE TABLE contestaciones(
 CREATE TABLE comentarios(
 	id_contestacion int,
 	id_pub int,
+	num_respuestas int,
 	FOREIGN KEY(id_contestacion) REFERENCES contestaciones(id),
 	FOREIGN KEY(id_pub) REFERENCES publicaciones(id)
 );
