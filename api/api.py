@@ -217,14 +217,6 @@ def get_respuestas():
 		abort(400)		
 	return jsonify( { 'respuestas': datastore.getRespuestas(id_comentario) } )
 	
-@app.route('/api/v1.0/usuarios/<int:id_user>/seguidores', methods = ['GET'])
-@auth.login_required
-def get_seguidores(id_user):
-	seguidores = datastore.getSeguidores(id_user);
-	if seguidores is None:
-		abort(404)
-	return jsonify( { 'seguidores': seguidores } )
-
 @app.route('/api/v1.0/usuarios/<int:id_user>/seguidos', methods = ['GET'])
 @auth.login_required
 def get_seguidos(id_user):
@@ -232,6 +224,32 @@ def get_seguidos(id_user):
 	if seguidos is None:
 		abort(404)
 	return jsonify( { 'seguidos': seguidos } )
+	
+@app.route('/api/v1.0/usuarios/<int:id_user>/seguidores', methods = ['GET'])
+@auth.login_required
+def get_seguidores(id_user):
+	seguidores = datastore.getSeguidores(id_user);
+	if seguidores is None:
+		abort(404)
+	return jsonify( { 'seguidores': seguidores } )
+	
+@app.route('/api/v1.0/usuarios/<int:id_user>/seguidores', methods = ['POST'])
+@auth.login_required
+def add_seguidor(id_user):
+	id_user_seguidor = request.args.get('id_user_seguidor','')
+	if id_user == '':
+		abort(400)
+	datastore.addSeguidor(id_user, id_user_seguidor)
+	return jsonify( { 'result': True } )
+	
+@app.route('/api/v1.0/usuarios/<int:id_user>/seguidores', methods = ['DELETE'])
+@auth.login_required
+def remove_seguidor(id_user):
+	id_user_seguidor = request.args.get('id_user_seguidor','')
+	if id_user == '':
+		abort(400)
+	datastore.removeSeguidor(id_user, id_user_seguidor)
+	return jsonify( { 'result': True } )
 	
 @app.route('/api/v1.0/usuarios', methods = ['POST'])
 @auth.login_required

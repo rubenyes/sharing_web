@@ -61,12 +61,14 @@ def getPublicaciones(id_user):
 def getDashboard(id_user):
 	db = get_db()
 	seguidos = getSeguidos(id_user)
-	publicaciones = {}
+	publicaciones = []
 	for user in seguidos:
-		publicaciones += db.cursor().execute('SELECT * FROM publicaciones WHERE id_usuario=?', (user[0],)).fetchall() #la pos 0 corresponde al id del usuario
-	#publicaciones.sort(key=lambda x: x[2], reverse=True) #la pos 2 corresponde a la fecha de la publicacion
-	publicaciones_ordenadas = sorted(publicaciones.keys(), key=lambda x: x[2])
-	return publicaciones_ordenadas
+		results = db.cursor().execute('SELECT * FROM publicaciones WHERE id_usuario=?', (user[0],)).fetchall() #la pos 0 corresponde al id del usuario
+		print results
+		publicaciones.extend(results)
+	publicaciones.sort(key=lambda x: x[2], reverse=True) #la pos 2 corresponde a la fecha de la publicacion
+	#publicaciones_ordenadas = sorted(publicaciones.keys(), key=lambda x: x[2])
+	return publicaciones
 	
 def addLike(id_pub, id_user):
 	db = get_db()
@@ -167,13 +169,27 @@ def getRespuestas(id_comentario):
 
 def getSeguidores(id_user):
 	db = get_db()
-	results = db.cursor().execute('SELECT id_seguidor FROM seguidores INNER JOIN usuarios ON usuarios.id=id_seguidor WHERE seguidores.id_usuario=?', (id_user,)).fetchall()
+	results = db.cursor().execute('SELECT id_seguidor FROM seguidores WHERE seguidores.id_usuario=?', (id_user,)).fetchall()
 	return results	
 	
 def getSeguidos(id_user):
 	db = get_db()
-	results = db.cursor().execute('SELECT id_usuario FROM seguidores INNER JOIN usuarios ON usuarios.id=id_usuario WHERE seguidores.id_seguidor=?', (id_user,)).fetchall()
+	results = db.cursor().execute('SELECT id_usuario FROM seguidores WHERE seguidores.id_seguidor=?', (id_user,)).fetchall()
 	return results	
+
+def addSeguidor(id_user, id_user_seguidor):
+	db = get_db()
+	db.cursor().execute('UPDATE usuarios SET num_seguidores=num_seguidores+1 WHERE id=?', (id_user,))
+	db.cursor().execute('UPDATE usuarios SET num_seguidos=num_seguidos+1 WHERE id=?', (id_user_seguidor,))
+	db.cursor().execute('INSERT INTO seguidores VALUES (?, ?)', (id_user, id_user_seguidor))
+	db.commit()
+
+def removeSeguidor(id_user, id_user_seguidor):
+	db = get_db()
+	db.cursor().execute('UPDATE usuarios SET num_seguidores=num_seguidores-1 WHERE id=?', (id_user,))
+	db.cursor().execute('UPDATE usuarios SET num_seguidos=num_seguidos-1 WHERE id=?', (id_user_seguidor,))
+	db.cursor().execute('DELETE FROM seguidores WHERE id_usuario=? AND id_seguidor=?', (id_user, id_user_seguidor))
+	db.commit()
 	
 def addUsuario(usuario, nombre, email, desc, pw):
 	db = get_db()

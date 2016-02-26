@@ -18,8 +18,10 @@ POST	http://[hostname]/api/v1.0/publicaciones/videos/			Crea un nuevo video
 GET	http://[hostname]/api/v1.0/publicaciones/videos/[id_pub]		Devuelve un video
 POST	http://[hostname]/api/v1.0/respuestas/					Crea una nueva respuesta
 GET	http://[hostname]/api/v1.0/respuestas/?id_comentario=13			Devuelve los respuestas de una comentario
-GET	http://[hostname]/api/v1.0/usuarios/[id_user]/seguidores		Devuelve los seguidores de un usuario
 GET	http://[hostname]/api/v1.0/usuarios/[id_user]/seguidos			Devuelve los seguidos de un usuario
+GET	http://[hostname]/api/v1.0/usuarios/[id_user]/seguidores		Devuelve los seguidores de un usuario
+POST	http://[hostname]/api/v1.0/usuarios/[id_user]/seguidores?id_user_seguidor=455	Crea un nuevo seguidor, y el "seguido" correspondiente
+DELETE	http://[hostname]/api/v1.0/usuarios/[id_user]/seguidores?id_user_seguidor=455	Borra un seguidor, y el "seguido" correspondiente
 POST	http://[hostname]/api/v1.0/usuarios/					Crea un nuevo usuario
 GET	http://[hostname]/api/v1.0/usuarios/[id_user]				Devuelve un usuario
 PUT	http://[hostname]/api/v1.0/usuarios/[id_user]				Actualiza un usuario
